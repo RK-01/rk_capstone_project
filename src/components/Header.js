@@ -20,7 +20,7 @@ const Header = () => {
             window.removeEventListener('click', menuFunc)
         }
     },[])
-    return (<header>
+    return (<header className="container">
         
             <Logo />
             <nav>
