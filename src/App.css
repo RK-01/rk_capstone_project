@@ -34,6 +34,7 @@ ul li:hover{
 a{
   text-decoration: none;
   text-transform: uppercase;
+  color:#495E57;
 }
 
 @media (max-width: 780px){
@@ -93,6 +94,8 @@ width: 100%;
     grid-template-columns: 1fr;
   }
 }
+
+/* Hero Section  */
 .hero{
  background-color: #495E57;
 }
@@ -129,9 +132,13 @@ width: 100%;
   width: 210px;
   height: 68px;
   border-radius: 16px;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
   cursor:pointer;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
 }
 .hero-action-btn:hover{
   opacity: .8;
@@ -265,6 +272,9 @@ max-height: 600px;
     font-size: 16px;
   font-optical-sizing: auto;
   line-height: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 
 }
 .food-article-title{
@@ -288,4 +298,352 @@ max-height: 600px;
   font-style: normal;
   line-height: 1.5rem;
   color: #EE9982;
+}
+/* Footer CSS */
+.footer-wrapper{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.footer-container{
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 10px;
+}
+.hero-reservation-image{
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+.w-full{
+  width: 100% !important;
+}
+
+.d-flex{
+   display: flex;
+   gap:10px;
+}
+.flex-column{
+    flex-direction: column;
+}
+.flex-row{
+    flex-direction: row;
+}
+.flex-center{
+  align-items: center;
+  justify-content: center;
+}
+.flex-between{
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* About Section  */
+.about-section{
+  padding: 10px;
+ display: flex;
+ flex-direction: row;
+ height: 400px;
+ gap:20px;
+ }
+ @media (max-width: 780px){
+  .about-section{
+    flex-direction: column;
+    height: 700px;
+
+  }
+ }
+.about-text-container{
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  gap: 20px;
+  font-family: "Markazi Text", serif;
+  justify-content: center;
+}
+.about-image-container{
+  position:relative;
+  flex:1;
+  flex-basis: 50%;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.about-image-1{
+  position:absolute;
+  border-radius: 16px;
+  height: 300px;
+  object-fit: cover;
+}
+.about-image-2{
+  position: absolute;
+  bottom:100px;
+  right:20px;
+  border-radius: 16px;
+  height: 300px;
+  object-fit: cover;
+}
+.about-action-btn:hover{
+  opacity: .8;
+}
+.about-title{
+ font-family: "Markazi Text", serif;
+font-size: 64px;
+font-weight: medium;
+color:#F4CE14;
+line-height: 1.5rem;
+}
+.about-title-container{
+  display: flex;
+  flex-direction: column;
+  gap:0;
+  margin: 0;
+  padding: 0;
+}
+.about-subtitle{
+ font-family: "Markazi Text", serif;
+font-size: 40px;
+font-weight: regular;
+color:#495E57;
+}
+.about-body-text{
+font-family: "Karla", sans-serif;
+font-size: 18px;
+font-weight: medium;
+color:#495E57;
+}
+
+/* Testimonial Card  */
+.testimonial-title{
+font-family: "Karla", sans-serif;
+font-size: 32px;
+font-weight: medium;
+color:#495E57;
+text-align: center;
+padding-top: 50px;
+}
+.testimonial-card-header{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.testimonial-card-img{
+  height: 80px;
+  width: 80px;
+  border-radius: 80px;
+  object-fit: cover;
+}
+.testimonial-card-container{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  max-width: 180px;
+  padding: 20px;
+  border: 1px solid  #EDEFEE;
+  height: 180px;
+  width: 180px;
+  border-radius: 10px;
+  
+}
+.testimonial-card-rating{
+  width: 60px;
+}
+.testimonial-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding-top: 20px;
+  padding-bottom: 100px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+/* @media (max-width:780px){
+  .testimonial-container{
+    flex-direction: column;
+  }
+} */
+
+/* Reservation form */
+
+.reservation-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 50px 10px;
+  gap: 20px;
+ }
+ @media (max-width: 780px){
+  .reservation-container{
+    grid-template-columns: 1fr;
+  }
+ }
+.reservation-form{
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+}
+.reservation-contact{
+  flex:1;
+}
+.form-control{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.form-input{
+  background-color: #f7f7f7;
+  padding: 10px;
+  border: 1px solid lightgray;
+  border-radius: 6px;
+}
+.form-grid{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3px;
+}
+
+.form-label{
+     font-family: "Karla", sans-serif;
+    font-size: 14px;
+  font-optical-sizing: auto;
+  font-weight: bolder;
+  font-style: normal;
+}
+.form-title{
+     font-family: "Karla", sans-serif;
+    font-size: 32px;
+  font-optical-sizing: auto;
+  font-weight: bolder;
+  font-style: normal;
+  margin-bottom: 10px;
+}
+.reservation-confirm-btn{
+  background-color: #495E57;
+  color:#F4CE14;
+  width: 210px;
+  height: 68px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor:pointer;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.reservation-page-subtitle{
+font-family: "Markazi Text", serif;
+font-size: 40px;
+font-weight: normal;
+color:#495E57;
+}
+
+.reservation-page-title{
+font-family: "Markazi Text", serif;
+font-size: 40px;
+font-weight: medium;
+color:#495E57;
+text-align: center;
+margin-top: 50px;
+}
+.map{
+  height: 400px;
+  object-fit: cover;
+}
+
+/* Confirmation Page */
+
+.check-icon-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+.check-icon{
+  width:80px;
+  height: 80px;
+}
+.confirmation-container{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.confirmation-detail{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.confirmation-title{
+     font-family: "Karla", sans-serif;
+    font-size: 40px;
+  font-optical-sizing: auto;
+  font-weight: bolder;
+  font-style: normal;
+}
+
+.confirmation-subtitle{
+     font-family: "Karla", sans-serif;
+    font-size: 20px;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+}
+
+.confirmation-body-text{
+     font-family: "Karla", sans-serif;
+    font-size: 16px;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Footer */
+footer{
+  background-color: #EDEFEE;
+}
+.footer-title{
+     font-family: "Karla", sans-serif;
+    font-size: 16px;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+  color:#495E57;
+}
+.footer-list-item{
+  font-family: "Karla", sans-serif;
+  font-size: 16px;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+footer ul {
+  list-style: none;
+  padding: 0;
+}
+footer ul li{
+  padding-top: 5px;
+  padding-left: 0;
+  padding-bottom: 5px;
+}
+footer ul li a{
+  color:#495E57;
+  text-transform: capitalize;
+}
+footer ul li a:hover{
+  font-weight: bold;
 }

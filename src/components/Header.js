@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     const [showMenu, setShowMenu] = useState(false);
@@ -26,9 +27,9 @@ const Header = () => {
             <nav>
                 <ul className="nav-list">
                     <li><a href="/">Home</a></li>
-                    <li><a href="/">About</a></li>
-                    <li><a href="/">Reservation</a></li>
-                    <li><a href="/">Online Order</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <li><Link to="/reservation">Reservation</Link></li>
+                    <li><a href="/#week_special">Online Order</a></li>
                     <li><a href="/">Login</a></li>
             </ul>
             
@@ -37,9 +38,9 @@ const Header = () => {
             <button className="nav-menu-btn" id="nav_menu_btn" type="button" onClick={(e)=>toggleMenu(e)}><img className="nav-menu-btn" src="/icon_hamburger_menu.svg" alt="menu" /></button>
             {showMenu && <ul className="nav-items-mobile">
                     <li><a href="/">Home</a></li>
-                    <li><a href="/">About</a></li>
-                    <li><a href="/">Reservation</a></li>
-                    <li><a href="/">Online Order</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <li><Link to="/reservation">Reservation</Link></li>
+                    <li><a href="/#week_special">Online Order</a></li>
                     <li><a href="/">Login</a></li>
                 </ul>}
             </div>

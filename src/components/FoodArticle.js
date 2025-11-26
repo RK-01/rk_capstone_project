@@ -1,3 +1,5 @@
+import CycleIcon from "./CycleIcon";
+
 const FoodArticle = ({url, title, value, body, itemUrl}) => {
     return (<article className="food-article-container">
         <div className="food-article-img-container">
@@ -9,7 +11,9 @@ const FoodArticle = ({url, title, value, body, itemUrl}) => {
                 <span className="food-article-value">{value}</span>
             </div>
             <p className="food-article-body-text">{body}</p>
-            <a href={itemUrl} className="food-article-link">Order a delivery</a>
+            <a href={itemUrl} className="food-article-link"><span>Order a delivery </span><span className="h-10 w-10">
+               <CycleIcon />
+</span></a>
         </div>
     </article> );
 }
