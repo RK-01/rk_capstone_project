@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 const HeroSection = () => {
     return (<section className="hero">
         <div className="hero-section container">
@@ -9,7 +7,7 @@ const HeroSection = () => {
                 <span className="hero-subtitle">Chicago</span>
             </div>
             <p className="hero-body-text">Serving delightful recipes with a smile, everyday. Come and experience today!</p>
-           <Link className="hero-action-btn" to="/reservation">Reserve A Table</Link>
+           <a className="hero-action-btn" href="/reservation">Reserve A Table</a>
             </div>
             <div className="hero-image-container">
                 <img className="hero-image" src="/restaurantfood.jpg" alt="Little Lemon" width={300}/>

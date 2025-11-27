@@ -647,3 +647,11 @@ footer ul li a{
 footer ul li a:hover{
   font-weight: bold;
 }
+
+/* Available Time */
+.available-time-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}

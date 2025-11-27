@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
-import { Link } from "react-router-dom";
 
 const Header = () => {
     const [showMenu, setShowMenu] = useState(false);
@@ -28,7 +27,7 @@ const Header = () => {
                 <ul className="nav-list">
                     <li><a href="/">Home</a></li>
                     <li><a href="/#about">About</a></li>
-                    <li><Link to="/reservation">Reservation</Link></li>
+                    <li><a href="/reservation">Reservation</a></li>
                     <li><a href="/#week_special">Online Order</a></li>
                     <li><a href="/">Login</a></li>
             </ul>
@@ -39,7 +38,7 @@ const Header = () => {
             {showMenu && <ul className="nav-items-mobile">
                     <li><a href="/">Home</a></li>
                     <li><a href="/#about">About</a></li>
-                    <li><Link to="/reservation">Reservation</Link></li>
+                    <li><a href="/reservation">Reservation</a></li>
                     <li><a href="/#week_special">Online Order</a></li>
                     <li><a href="/">Login</a></li>
                 </ul>}
