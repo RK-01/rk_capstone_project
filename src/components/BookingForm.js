@@ -1,6 +1,7 @@
 import { useState } from "react";
+//import  {useLocation} from "react-router-dom";
 
-const BookingForm = ({availableTimes, dispatch}) => {
+const BookingForm = ({availableTimes, dispatch, submitForm }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -9,20 +10,51 @@ const BookingForm = ({availableTimes, dispatch}) => {
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [occasion, setOccasion] = useState('');
-	const [message, setMessage] = useState('');
 	
+	const location = null;// useLocation();
+
+	const handleSubmit = () => {
+		const booking = {
+			firstName, lastName, email, mobile, numOfGuest, date, time, occasion
+		}
+		if (firstName === "") { alert("First name is required"); return; }
+		const formData = new FormData();
+		formData.append('firstName', firstName);
+		formData.append('lastName', lastName);
+		formData.append('email', email);
+		formData.append('mobile', mobile);
+		formData.append('numOfGuest', numOfGuest);
+		formData.append('date', date);
+		formData.append('time', time);
+		formData.append('occasion', occasion);
+		
+		 const setLocalStorage = (id, data) => {
+  			window.localStorage.setItem(id, JSON.stringify(data));
+		};
+		setLocalStorage('booking', booking)
+		const res = submitForm(formData);
+		if (res) {
+			location('/confirmation');
+		}
+	}
+
+	const changeDate = (e) => {
+		setDate(e.target.value);
+		dispatch({ date: e.target.value });
+
+	}
     return (<>
-            <form action="#" className="w-full">
+            <form action="#" className="w-full" onSubmit={handleSubmit}>
 				<div className="row form-group">
 			        <div className="form-control">
 					    <label className="form-label"  htmlFor="first_name">First Name</label>
-						<input type="text" id="first_name" className="form-input" onChange={(e)=>setFirstName(e.target.value)}/>
+						<input value={firstName} type="text" id="first_name" className="form-input" onChange={(e)=>setFirstName(e.target.value)}/>
 					</div>
 				</div>
 				<div className="row form-group">
 					<div className="form-control">
 						<label className="form-label"  htmlFor="last_name">Last Name</label>
-						<input type="text" id="last_name" className="form-input" onChange={(e)=>setLastName(e.target.value)}/>
+						<input value={lastName} type="text" id="last_name" className="form-input" onChange={(e)=>setLastName(e.target.value)}/>
 					</div>
 				</div>
 				<div className="row form-group">
@@ -56,17 +88,17 @@ const BookingForm = ({availableTimes, dispatch}) => {
                     <div className="row form-group">
 						<div className="form-control">
 							<label className="form-label" htmlFor="date">Date</label>
-							<input type="date" id="date" className="form-input" onChange={(e)=>setDate(prev=> prev = e.target.value)}/>
+							<input data-testid="date-change-event" type="date" id="date" className="form-input" onChange={(e)=>changeDate(e)}/>
 						</div>
                     </div>
                     <div className="row form-group">
 						<div className="form-control">
 					        <label className="form-label" htmlFor="res-time">Choose Time</label>
-                            <select name="availableTimings" id="res-time" onChange={(e)=> dispatch({date: date, time: e.target.value})} className="form-input">
-							<option name="timing">Select Time</option>
+                            <select data-testid="select-times" id="res-time" onChange={(e)=> setTime(e.target.value)} className="form-input">
+							<option data-testid="time-option" value="">Select Time</option>
 							{availableTimes?.map((item, index) => {
 								
-								return <option name="jest" className="available-time-container" key={index} disabled={item.date === date && !item?.isAvailable}><span>{item?.time} </span>{ item.date === date && !item?.isAvailable && <span>Not Available</span>}</option>
+								return <option data-testid="time-option" className="available-time-container" key={index} >{item} </option>
 									
                                 })}
                             </select>
@@ -77,20 +109,15 @@ const BookingForm = ({availableTimes, dispatch}) => {
 					<div className="form-control">
 							<label className="form-label" htmlFor="occasion">Occasion</label>
 							<select name="#" id="occasion" className="form-input" onChange={(e)=>setOccasion(e.target.value)}>
-					            <option value="Birthday">Birthday</option>
+					    <option value="">Select Occasion</option>        
+						<option value="Birthday">Birthday</option>
 								<option value="Annivarsary">Annivarsary</option>
 							</select>
 						</div>
                     </div>
-				<div className="row form-group">
-				    <div className="form-control">
-					    <label className="form-label" htmlFor="message">Message</label>
-						<textarea rows={5} id="message" className="form-input" onChange={(e)=>setMessage(e.target.value)}/>
-					</div>
-                </div>
-				<div className="row form-group">
+					<div className="row form-group">
 					<div className="form-control mt-10">
-				    	<a href="/confirmation" className="reservation-confirm-btn">Confirm Reservation</a>
+				    	<button className="reservation-confirm-btn" data-testid="confirm-booking">Confirm Reservation</button>
 					</div>
 				</div>
             </form>

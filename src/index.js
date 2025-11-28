@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { BrowserRouter as Router, Route, Routes, Switch} from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom"
 
 import HomePage from './pages/HomePage';
-import ConfirmationPage from './pages/ConfirmationPage';
 import BookingPage from './pages/BookingPage';
+import BookingConfirmationPage from './pages/BookingConfirmationPage';
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,7 +16,7 @@ root.render(
     <Router>
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/confirmation' element={<ConfirmationPage />} />
+        <Route path='/confirmation' element={<BookingConfirmationPage />} />
         <Route path='/reservation' element={<BookingPage />} />
       </Routes>
         <App />
