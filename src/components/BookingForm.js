@@ -1,86 +1,97 @@
-import { useState } from "react";
-//import  {useLocation} from "react-router-dom";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
-const BookingForm = ({availableTimes, dispatch, submitForm }) => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [mobile, setMobile] = useState('');
-    const [numOfGuest, setNumOfGuest] = useState('');
-    const [date, setDate] = useState('');
-    const [time, setTime] = useState('');
-    const [occasion, setOccasion] = useState('');
-	
-	const location = null;// useLocation();
-
-	const handleSubmit = () => {
-		const booking = {
-			firstName, lastName, email, mobile, numOfGuest, date, time, occasion
-		}
-		if (firstName === "") { alert("First name is required"); return; }
-		const formData = new FormData();
-		formData.append('firstName', firstName);
-		formData.append('lastName', lastName);
-		formData.append('email', email);
-		formData.append('mobile', mobile);
-		formData.append('numOfGuest', numOfGuest);
-		formData.append('date', date);
-		formData.append('time', time);
-		formData.append('occasion', occasion);
-		
-		 const setLocalStorage = (id, data) => {
+const setLocalStorage = (id, data) => {
   			window.localStorage.setItem(id, JSON.stringify(data));
 		};
-		setLocalStorage('booking', booking)
-		const res = submitForm(formData);
-		if (res) {
-			location('/confirmation');
-		}
-	}
 
-	const changeDate = (e) => {
-		setDate(e.target.value);
-		dispatch({ date: e.target.value });
+const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
 
-	}
-    return (<>
-            <form action="#" className="w-full" onSubmit={handleSubmit}>
+	const schema = yup.object().shape({
+		firstName: yup.string().required("First name is required"),
+		lastName: yup.string().required("Last name is required"),
+		guests: yup.string().required("Number of guest is required"),
+        email: yup.string()
+            .email("Invalid email address format")
+            .required("Email is required"),
+        mobile: yup.string()
+            .min(10, "Mobile number must be 10 digits").max(10, "Mobile number should not be more than 10 digits")
+			.required("Mobile number is required"),
+		date: yup.string().required("Date is required"),
+		time: yup.string().required("Time is required"),
+		occasion: yup.string().required("Occasion is required"),
+    });
+
+	const formik = useFormik({
+		validationSchema: schema,
+		initialValues: {
+			firstName: '',
+			lastName: '',
+			email: "",
+			mobile: "",
+			guests: "",
+			date: "",
+			time: "",
+			occasion: ""
+		},
+		onSubmit: async (values, { setSubmitting, resetForm }) => {
+			setLocalStorage('booking', values);
+			const res = submitForm(values);
+			if (res) {
+					resetForm();
+			setSubmitting(false);
+			window.location.href = '/confirmation';
+			}
+    },
+  });
+    return (
+            <form className="w-full" onSubmit={formik.handleSubmit}>
 				<div className="row form-group">
 			        <div className="form-control">
 					    <label className="form-label"  htmlFor="first_name">First Name</label>
-						<input value={firstName} type="text" id="first_name" className="form-input" onChange={(e)=>setFirstName(e.target.value)}/>
+					<input name="firstName" type="text" id="first_name" className="form-input" {...formik.getFieldProps("firstName")} />
+					 {formik.touched.firstName && formik.errors.firstName && (
+          			<div style={{ color: "red" }}>{formik.errors.firstName}</div>)}
 					</div>
 				</div>
 				<div className="row form-group">
 					<div className="form-control">
 						<label className="form-label"  htmlFor="last_name">Last Name</label>
-						<input value={lastName} type="text" id="last_name" className="form-input" onChange={(e)=>setLastName(e.target.value)}/>
-					</div>
+						<input name="lastName" type="text" id="last_name" className="form-input" {...formik.getFieldProps("lastName")}/>
+						 {formik.touched.lastName && formik.errors.lastName && (
+          			<div style={{ color: "red" }}>{formik.errors.lastName}</div>)}
+				</div>
 				</div>
 				<div className="row form-group">
 					<div className="form-control">
 				    	<label className="form-label" htmlFor="email">Email</label>
-					    <input type="email" id="email" className="form-input" onChange={(e)=>setEmail(e.target.value)}/>
+					<input name="email" type="email" id="email" className="form-input" {...formik.getFieldProps("email")} />
+					{formik.touched.email && formik.errors.email && (
+          			<div data-testid="emailerror" style={{ color: "red" }}>{formik.errors.email}</div>)}
 					</div>
                 </div>
                 <div className="form-grid">
                     <div className="row form-group">
 					    <div className="form-control">
-						    <label className="form-label" htmlFor="phone">Mobile</label>
-							<input type="text" id="phone" className="form-input" onChange={(e)=>setMobile(e.target.value)}/>
+						    <label className="form-label" htmlFor="mobile">Mobile</label>
+						<input name="mobile" type="text" id="mobile" className="form-input" {...formik.getFieldProps("mobile")} />
+						{formik.touched.mobile && formik.errors.mobile && (
+          			<div style={{ color: "red" }}>{formik.errors.mobile}</div>)}
 						</div>
                     </div>
                     <div className="row form-group">
 						<div className="form-control">
 							<label className="form-label" htmlFor="num_guests">Number of Guests</label>
-							<select name="#" id="num_guests" className="form-input" onChange={(e)=>setNumOfGuest(e.target.value)}>
-					            <option value="">Number of Persons</option>
+							<select name="guests" id="num_guests" className="form-input" {...formik.getFieldProps("guests")}>
+					            <option value="2">Number of Guests</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
 								<option value="4">4</option>
 								<option value="5">5+</option>
-							</select>
+						</select>
+						{formik.touched.guests && formik.errors.guests && (
+          			<div style={{ color: "red" }}>{formik.errors.guests}</div>)}
 						</div>
                     </div>
                 </div>
@@ -88,40 +99,43 @@ const BookingForm = ({availableTimes, dispatch, submitForm }) => {
                     <div className="row form-group">
 						<div className="form-control">
 							<label className="form-label" htmlFor="date">Date</label>
-							<input data-testid="date-change-event" type="date" id="date" className="form-input" onChange={(e)=>changeDate(e)}/>
-						</div>
+						<input name="date" data-testid="date-change-event" type="date" id="date" className="form-input" {...formik.getFieldProps("date")} />
+							{formik.touched.date && formik.errors.date && (
+          			<div style={{ color: "red" }}>{formik.errors.date}</div>)}
+					</div>
                     </div>
                     <div className="row form-group">
 						<div className="form-control">
 					        <label className="form-label" htmlFor="res-time">Choose Time</label>
-                            <select data-testid="select-times" id="res-time" onChange={(e)=> setTime(e.target.value)} className="form-input">
-							<option data-testid="time-option" value="">Select Time</option>
+                            <select name="time" data-testid="select-times" id="res-time" {...formik.getFieldProps("time")} className="form-input">
+							<option data-testid="time-option" value="00:00">Select Time</option>
 							{availableTimes?.map((item, index) => {
-								
 								return <option data-testid="time-option" className="available-time-container" key={index} >{item} </option>
-									
                                 })}
-                            </select>
+						</select>
+						{formik.touched.time && formik.errors.time && (
+          			<div style={{ color: "red" }}>{formik.errors.time}</div>)}
 						</div>
 					</div>
                 </div>
                 <div className="row form-group">
 					<div className="form-control">
 							<label className="form-label" htmlFor="occasion">Occasion</label>
-							<select name="#" id="occasion" className="form-input" onChange={(e)=>setOccasion(e.target.value)}>
-					    <option value="">Select Occasion</option>        
-						<option value="Birthday">Birthday</option>
-								<option value="Annivarsary">Annivarsary</option>
-							</select>
+							<select name="occasion" id="occasion" className="form-input" {...formik.getFieldProps("occasion")}>
+					    <option value="Birthday">Birthday</option>
+						<option value="Annivarsary">Annivarsary</option>
+						<option value="Other">Other</option>
+					</select>
+					{formik.touched.occasion && formik.errors.occasion && (
+          			<div style={{ color: "red" }}>{formik.errors.occasion}</div>)}
 						</div>
                     </div>
 					<div className="row form-group">
 					<div className="form-control mt-10">
-				    	<button className="reservation-confirm-btn" data-testid="confirm-booking">Confirm Reservation</button>
-					</div>
+					<button type="submit" className="reservation-confirm-btn" data-testid="confirm-booking" disabled={formik.isSubmitting}>Confirm Reservation</button>
+				</div>
 				</div>
             </form>
-        </>);
+        );
 }
- 
 export default BookingForm;

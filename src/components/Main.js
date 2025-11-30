@@ -3,7 +3,7 @@ import HeroSection from "./Hero";
 import CategorySection from "./CategorySection";
 import TestimonialSection from "./TestimonialSection";
 import About from "./About";
-// import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import BookingForm from "./BookingForm";
 import CheckIcon from "./CheckIcon";
 
@@ -12,7 +12,7 @@ const updateTimes = (state, action) => {
 
   let currentState = [...state];
   if (action.date === "") {
-    alert("Date is missing"); return state = currentState;
+    return state = currentState;
   };
 
   
@@ -66,12 +66,8 @@ const fetchAPI = function(date) {
     return result;
 };
 
-const submitAPI = function(formData) {
-    return true;
-};
 const submitForm = (formData) => {
-  const result = submitAPI(formData);
-  return result;
+  return true;
 }
 
 const initializeTimes = () => {
@@ -79,10 +75,13 @@ const initializeTimes = () => {
   const data = fetchAPI(date)
   return data;
 } 
+module.export = initializeTimes;
+module.export = updateTimes;
 
 const Main = ({currentBooking}) => {
   const [state, dispatch] = useReducer(updateTimes, initializeTimes());
-  const location = null // useLocation();
+  const location = useLocation();
+
   useEffect(() => {
     initializeTimes();
   },[])
@@ -101,7 +100,7 @@ const Main = ({currentBooking}) => {
                 <h3 className="reservation-page-title">Reserve A Table</h3>
           <div className="reservation-container w-full">
               {/* Booking Form Component */}
-              <BookingForm availableTimes={state} dispatch={dispatch} submitForm={submitForm}/>
+          <BookingForm availableTimes={state} dispatch={dispatch} submitForm={submitForm} />
                         <div className="d-flex flex-column w-full">
                             <div className="">
                                 <div className="single-footer-widget">
@@ -145,7 +144,7 @@ const Main = ({currentBooking}) => {
         <h1 className="confirmation-title">Congratulations!</h1>
         <h3 className="confirmation-subtitle">Your table booking at Little Lemon is confirmed!</h3>
         <div className="confirmation-body-text">
-            <p className="confirmation-detail"><span>Guests:</span> <span>{currentBooking.numOfGuest}</span></p>
+            <p className="confirmation-detail"><span>Guests:</span> <span>{currentBooking.guests}</span></p>
             <p className="confirmation-detail"><span>Day:</span> <span>{new Intl.DateTimeFormat('en-US', {
               dateStyle: "long"
             }).format(new Date(currentBooking.date))}</span></p>
