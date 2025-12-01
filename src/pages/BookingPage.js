@@ -5,7 +5,7 @@ import Main from "../components/Main";
 const BookingPage = () => {
   return (<>
             <Header />
-            <Main />
+            <Main/>
             <Footer />
       </>
 );

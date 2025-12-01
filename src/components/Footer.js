@@ -9,7 +9,7 @@ const Footer = () => {
                 <ul>
                     <li><a className="footer-list-item" href="/">Home</a></li>
                     <li><a className="footer-list-item" href="/">About</a></li>
-                    <li><a className="footer-list-item" href="/">Reservation</a></li>
+                    <li><a className="footer-list-item" href="/reservation">Reservation</a></li>
                     <li><a className="footer-list-item" href="/">Order Online</a></li>
                     <li><a className="footer-list-item" href="/">Login</a></li>
                 </ul>

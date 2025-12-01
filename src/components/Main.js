@@ -3,45 +3,18 @@ import HeroSection from "./Hero";
 import CategorySection from "./CategorySection";
 import TestimonialSection from "./TestimonialSection";
 import About from "./About";
-import { useLocation, useNavigate } from "react-router-dom";
 import BookingForm from "./BookingForm";
 import CheckIcon from "./CheckIcon";
 
 
 const updateTimes = (state, action) => {
+  const date = new Date(action?.date)
+  if (date) {
+    const data = fetchAPI(date)
+    return state = data;
 
-  let currentState = [...state];
-  if (action.date === "") {
-    return state = currentState;
-  };
-
-  
-  //   const itemToUpdate = currentState.find(item => item.date === action.date && item.time === action.time);
-  // if (itemToUpdate) {
-  //     itemToUpdate.isAvailable = false;
-  //     return state = currentState;
-  //   }
-
-  // if (!itemToUpdate) {
-  //   const newState = currentState.map(item2 => {
-  //     if (item2.time === action.time) {
-  //       const newItem = { date: action.date, time: item2.time, isAvailable: false };
-  //      // const newArray = [...currentState, newItem];
-  //     return newItem;
-  //     } else {
-  //       const newItem = { date: action.date, time: item2.time, isAvailable: true };
-  //      // const newArray = [...currentState, newItem];
-  //     return newItem;
-  //       }
-  //     })
-    // return state = newState;
-    // }
-  const date = new Date(action.date)
-   const data = fetchAPI(date)
-  // const filteredState = currentState.filter(item => item.date === action.date);
-  // console.log(filteredState)
-  return state = data;
-}
+  }
+  }
 const seededRandom = function (seed) {
     var m = 2**35 - 31;
     var a = 185852;
@@ -67,32 +40,30 @@ const fetchAPI = function(date) {
 };
 
 const submitForm = (formData) => {
-  return true;
+    return true;
 }
 
 const initializeTimes = () => {
   const date = new Date();
   const data = fetchAPI(date)
   return data;
-} 
-module.export = initializeTimes;
-module.export = updateTimes;
+}
+export const initializeTimesFunction = initializeTimes;
+export const updateTimesFunction = updateTimes;
 
-const Main = ({currentBooking}) => {
+const Main = ({booking}) => {
   const [state, dispatch] = useReducer(updateTimes, initializeTimes());
-  const location = useLocation();
-
   useEffect(() => {
     initializeTimes();
   },[])
-  if (location?.pathname === "/") {
+  if (window.location.pathname === "/") {
     return (<main>
                 <HeroSection />
                 <CategorySection title="This Week&apos;s Specials!" />
                 <TestimonialSection title="Testimonials" />
                 <About />
             </main>)
-  } else if (location?.pathname === "/reservation") {
+  } else if (window.location.pathname === "/reservation") {
     return (<main><section className="hero-container">
     <img src="/restaurant.jpg" alt="map" className="hero-reservation-image"/>
  </section>
@@ -130,7 +101,7 @@ const Main = ({currentBooking}) => {
               </div>
           </section>
           <div><img className="w-full map" src="/chicago.png" alt="map"/></div></main>)
-  } else if (location?.pathname === "/confirmation") {
+  } else if (window.location.pathname === "/confirmation") {
     return (<main>
       <section className="hero-container">
     <img src="/restaurant.jpg" alt="map" className="hero-reservation-image"/>
@@ -144,11 +115,11 @@ const Main = ({currentBooking}) => {
         <h1 className="confirmation-title">Congratulations!</h1>
         <h3 className="confirmation-subtitle">Your table booking at Little Lemon is confirmed!</h3>
         <div className="confirmation-body-text">
-            <p className="confirmation-detail"><span>Guests:</span> <span>{currentBooking.guests}</span></p>
+            <p className="confirmation-detail"><span>Guests:</span> <span>{booking.guests}</span></p>
             <p className="confirmation-detail"><span>Day:</span> <span>{new Intl.DateTimeFormat('en-US', {
               dateStyle: "long"
-            }).format(new Date(currentBooking.date))}</span></p>
-            <p className="confirmation-detail"><span>Time:</span> <span>{currentBooking.time}</span></p>
+            }).format(new Date(booking.date))}</span></p>
+            <p className="confirmation-detail"><span>Time:</span> <span>{booking.time}</span></p>
           </div>
         <p className="confirmation-subtitle">We look forward to serve you.</p>
       </div>
