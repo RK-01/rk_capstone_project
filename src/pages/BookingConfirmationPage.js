@@ -7,7 +7,7 @@ const BookingConfirmationPage = () => {
     
   return (<>
             <Header />
-    <Main booking={booking} />
+            <Main booking={booking} />
             <Footer />
   </>);
 }
