@@ -11,7 +11,7 @@ import BookingPage from './pages/BookingPage';
     { path: "/reservation", element: <BookingPage /> }
 ]);
 function App() {
-
+  // Router implementation for 3 routes only
   return (<RouterProvider router={router} />);
 }
 

@@ -19,9 +19,9 @@ const Header = () => {
         return () => {
             window.removeEventListener('click', menuFunc)
         }
-    },[])
-    return (<header className="container">
-        
+    })
+    return (
+        <header className="container">
             <Logo />
             <nav>
                 <ul className="nav-list">
@@ -30,12 +30,12 @@ const Header = () => {
                     <li><a href="/reservation">Reservation</a></li>
                     <li><a href="/#week_special">Online Order</a></li>
                     <li><a href="/">Login</a></li>
-            </ul>
-            
-        </nav>
-        <div className="nav-mobile">
-            <button className="nav-menu-btn" id="nav_menu_btn" type="button" onClick={(e)=>toggleMenu(e)}><img className="nav-menu-btn" src="/icon_hamburger_menu.svg" alt="menu" /></button>
-            {showMenu && <ul className="nav-items-mobile">
+                </ul>
+            </nav>
+            <div className="nav-mobile">
+                <button className="nav-menu-btn" id="nav_menu_btn" type="button" onClick={(e)=>toggleMenu(e)}><img className="nav-menu-btn" src="/icon_hamburger_menu.svg" alt="menu" /></button>
+            {showMenu &&
+                <ul className="nav-items-mobile">
                     <li><a href="/">Home</a></li>
                     <li><a href="/#about">About</a></li>
                     <li><a href="/reservation">Reservation</a></li>
@@ -43,9 +43,6 @@ const Header = () => {
                     <li><a href="/">Login</a></li>
                 </ul>}
             </div>
-        
-       
-    </header> );
+        </header> );
 }
- 
 export default Header;

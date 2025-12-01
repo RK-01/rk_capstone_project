@@ -1,5 +1,6 @@
 import TestimonialCard from "./TestimonialCard";
 
+//items is data for testimonials section feedback of customers
 const items = [
   {
         name: "Sam",
@@ -19,20 +20,15 @@ const items = [
         url: "/potrait-1.webp",
         message: "Nice food and good service",
     }
-    
 ]
 const TestimonialSection = ({title}) => {
     return (
         <section className=""> <h1 className="testimonial-title">{title}</h1>
-        <div className="testimonial-container">
-       
-           
-
-        
-            {items?.map((item) => {
-                return (<TestimonialCard key={item.id} url={item.url} name={item.name} message={item.message} />)
+            <div className="testimonial-container">
+                {items?.map((item) => {
+                return (<TestimonialCard key={item.name} url={item.url} name={item.name} message={item.message} />)
             })}
-        
-    </div> </section>);
+            </div>
+        </section>);
 }
 export default TestimonialSection;

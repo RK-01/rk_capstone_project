@@ -6,7 +6,7 @@ import About from "./About";
 import BookingForm from "./BookingForm";
 import CheckIcon from "./CheckIcon";
 
-
+// Dispatch function called on booking form on date change
 const updateTimes = (state, action) => {
   const date = new Date(action?.date)
   if (date) {
@@ -14,7 +14,8 @@ const updateTimes = (state, action) => {
     return state = data;
 
   }
-  }
+}
+  // function copied from fetch() url given in course
 const seededRandom = function (seed) {
     var m = 2**35 - 31;
     var a = 185852;
@@ -23,7 +24,7 @@ const seededRandom = function (seed) {
         return (s = s * a % m) / m;
     };
 }
-
+//function copied from fetch() url given in course
 const fetchAPI = function(date) {
     let result = [];
     let random = seededRandom(date.getDate());
@@ -39,24 +40,31 @@ const fetchAPI = function(date) {
     return result;
 };
 
+//fuction copied from fetch() url given in course
 const submitForm = (formData) => {
     return true;
 }
 
+// Function to pass initial data to booking page
 const initializeTimes = () => {
   const date = new Date();
   const data = fetchAPI(date)
   return data;
 }
+
+// Functions export to import them in App.test.js for testing purpose
 export const initializeTimesFunction = initializeTimes;
 export const updateTimesFunction = updateTimes;
 
-const Main = ({booking}) => {
+const Main = ({ booking }) => {
+  // Main component will return different pages based on location url
+
   const [state, dispatch] = useReducer(updateTimes, initializeTimes());
   useEffect(() => {
     initializeTimes();
   },[])
   if (window.location.pathname === "/") {
+    // Homepage will return on the home route
     return (<main>
                 <HeroSection />
                 <CategorySection title="This Week&apos;s Specials!" />
@@ -64,14 +72,16 @@ const Main = ({booking}) => {
                 <About />
             </main>)
   } else if (window.location.pathname === "/reservation") {
-    return (<main><section className="hero-container">
-    <img src="/restaurant.jpg" alt="map" className="hero-reservation-image"/>
- </section>
-  <section className="container">
-                <h3 className="reservation-page-title">Reserve A Table</h3>
-          <div className="reservation-container w-full">
-              {/* Booking Form Component */}
-          <BookingForm availableTimes={state} dispatch={dispatch} submitForm={submitForm} />
+    // Booking page will return on the /reservation route
+    return (<main>
+              <section className="hero-container">
+                  <img src="/restaurant.jpg" alt="map" className="hero-reservation-image"/>
+              </section>
+              <section className="container">
+                  <h3 className="reservation-page-title">Reserve A Table</h3>
+                <div className="reservation-container w-full">
+                    {/* Booking Form Component */}
+                      <BookingForm availableTimes={state} dispatch={dispatch} submitForm={submitForm} />
                         <div className="d-flex flex-column w-full">
                             <div className="">
                                 <div className="single-footer-widget">
@@ -102,6 +112,7 @@ const Main = ({booking}) => {
           </section>
           <div><img className="w-full map" src="/chicago.png" alt="map"/></div></main>)
   } else if (window.location.pathname === "/confirmation") {
+    //Booking confirmation page will return on the confirmation route
     return (<main>
       <section className="hero-container">
     <img src="/restaurant.jpg" alt="map" className="hero-reservation-image"/>
@@ -126,7 +137,8 @@ const Main = ({booking}) => {
     </section>
         </main>);
   }
-  return (<main>
-        </main>);
+  return (<>
+    {/* No other route implemented */}
+        </>);
 }
 export default Main;

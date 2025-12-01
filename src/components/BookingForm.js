@@ -2,6 +2,8 @@ import { useFormik } from "formik";
 import { useEffect } from "react";
 import * as yup from "yup";
 
+// LocalStorage function to store data to localstorage. 
+// It is called in the submit function with form value to save booking details
 const setLocalStorage = (id, data) => {
   			window.localStorage.setItem(id, JSON.stringify(data));
 		};
@@ -21,8 +23,9 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
 		date: yup.string().required("Date is required"),
 		time: yup.string().required("Time is required"),
 		occasion: yup.string().required("Occasion is required"),
-    });
-
+	});
+	// Formik is used for data validation on the client side.
+	// Initial values provided are empty string
 	const formik = useFormik({
 		validationSchema: schema,
 		initialValues: {
@@ -41,12 +44,14 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
 			if (res) {
 			resetForm();
 			setSubmitting(false);
+			// useNavigation was causing error in testing so used location object to redirect
 			window.location.href = '/confirmation';
 			}
     },
 	});
 	useEffect(() => {
 		if (formik.values.date) {
+			// dispatch function is called to updated availableTimes on date change
 			dispatch({ "date": formik.values.date });
 		}
 	},[formik.values.date ,dispatch])
@@ -88,7 +93,8 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
                     <div className="row form-group">
 						<div className="form-control">
 							<label className="form-label" htmlFor="numberOfGuests">Number of Guests</label>
-							<select name="guests" id="numberOfGuests" className="form-input" {...formik.getFieldProps("guests")} required>
+							{/*Minimum 2 guests logic is on the guest list from the formik schema  */}
+						<select name="guests" id="numberOfGuests" className="form-input" {...formik.getFieldProps("guests")} required>
 					            <option value="">Number of Guests</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
@@ -115,6 +121,7 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
 					        <label className="form-label" htmlFor="timeInput">Choose Time</label>
                             <select name="time" data-testid="select-times" id="timeInput" {...formik.getFieldProps("time")} className="form-input" required>
 							<option data-testid="time-option" value="">Select Time</option>
+							{/* availableTimes are recieved from props to map available times according to date */}
 							{availableTimes?.map((item, index) => {
 								return <option data-testid="time-option" className="available-time-container" key={index} >{item} </option>
                                 })}
@@ -138,7 +145,8 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
 						</div>
                     </div>
 					<div className="row form-group">
-					<div className="form-control mt-10">
+				<div className="form-control mt-10">
+					{/* Button uses aria-label attribute for improving accessibility */}
 					<button aria-label="On Click" type="submit" className="reservation-confirm-btn" data-testid="confirm-booking" disabled={formik.isSubmitting}>Confirm Reservation</button>
 				</div>
 				</div>
